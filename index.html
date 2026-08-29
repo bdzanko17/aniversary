@@ -317,7 +317,7 @@
 
   <section class="quiz-section">
     <h2>How well do you <em>know us</em>?</h2>
-    <p>Seven questions. No pressure, Amina. (Some pressure.)</p>
+    <p>Eight questions. No pressure, Amina. (Some pressure.)</p>
     <div class="card" id="quiz-card">
       <div id="quiz-play">
         <div id="quiz-progress"></div>
@@ -633,6 +633,11 @@ const QUIZ = [
    correct:0,
    right:"Barely being the key word.",
    wrong:"Pag and Novalja! They're still recovering."},
+  {q:"Which night did we sleep over together for the first time?",
+   opts:["New Year's, at Dado's place","Some random Tuesday","Trick question — we stayed up talking all night"],
+   correct:0,
+   right:"New Year's at Dado's place. Best possible way to start a year.",
+   wrong:"It was New Year's at Dado's place! The best start to a year in history."},
   {q:"Who makes the best breakfast and lunch in the world, every single day?",
    opts:["Amina","A fancy Viennese café","Benjo's cooking (lol)"],
    correct:0,
@@ -689,8 +694,8 @@ qNext.onclick = ()=>{
     res.style.display = 'block';
     document.getElementById('quiz-score').textContent = `${qScore} / ${QUIZ.length}`;
     const v = qScore === QUIZ.length ? "Perfect. Officially my other half. 🏆"
-      : qScore >= 5 ? "Very solid. The one miss? We don't talk about it. 😌"
-      : qScore >= 2 ? "Hmm. We clearly need more trips to practice. 🛳️"
+      : qScore >= 6 ? "Very solid. The one miss? We don't talk about it. 😌"
+      : qScore >= 3 ? "Hmm. We clearly need more trips to practice. 🛳️"
       : "Zero pressure, but we're redoing year one from the top. 😅";
     document.getElementById('quiz-verdict').textContent = v;
     burst(innerWidth/2, innerHeight/2, 18);
