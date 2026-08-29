@@ -137,6 +137,27 @@
   /* ---------- fireworks ---------- */
   #fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:95;pointer-events:none}
 
+  /* ---------- waddling penguin ---------- */
+  #penguin{
+    position:fixed;bottom:.25rem;left:0;z-index:85;
+    background:none;border:none;cursor:pointer;font-size:2.6rem;padding:.2rem;
+    animation:waddleAcross 45s linear infinite;
+  }
+  #penguin .waddle{display:inline-block;animation:waddleRock .5s ease-in-out infinite alternate}
+  #penguin.paused{animation-play-state:paused}
+  #penguin.paused .waddle{animation-play-state:paused}
+  #penguin:focus-visible{outline:2px solid var(--caramel);outline-offset:4px;border-radius:8px}
+  #penguin-bubble{
+    position:absolute;bottom:112%;left:50%;transform:translateX(-50%);
+    background:#fffdf9;border:1px solid var(--caramel);border-radius:12px;
+    padding:.5rem .9rem;font-family:'Caveat',cursive;font-size:1.15rem;line-height:1.3;
+    color:var(--ink);width:max-content;max-width:220px;display:none;
+    box-shadow:0 10px 24px -10px rgba(74,63,51,.4);
+  }
+  #penguin-bubble.show{display:block}
+  @keyframes waddleAcross{from{transform:translateX(-12vw)}to{transform:translateX(106vw)}}
+  @keyframes waddleRock{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+
   /* ---------- midnight reminder badge ---------- */
   #midnight-note{
     position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
@@ -388,7 +409,7 @@
 
   <section class="quiz-section">
     <h2>How well do you <em>know us</em>?</h2>
-    <p>Eight questions. No pressure, Amina. (Some pressure.)</p>
+    <p>Nine questions. No pressure, Amina. (Some pressure.)</p>
     <div class="card" id="quiz-card">
       <div id="quiz-play">
         <div id="quiz-progress"></div>
@@ -465,6 +486,11 @@
 </main>
 
 <button id="midnight-note">🎆 Amina — open this page right at midnight. Trust me.</button>
+
+<button id="penguin" aria-label="Our penguin — tap me">
+  <span id="penguin-bubble"></span>
+  <span class="waddle">🐧</span>
+</button>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
@@ -575,7 +601,8 @@ const ADVENTURES = [
   {ico:'⛴️', name:'Boat ferry',   note:'hair: destroyed. mood: perfect'},
   {ico:'💍', name:'2 weddings',   note:'danced like nobody filmed us (they did)'},
   {ico:'🔥', name:'360-day streak', note:'a few misses — we always recover'},
-  {ico:'📱', name:'Long distance', note:'my phone battery’s biggest enemy'}
+  {ico:'📱', name:'Long distance', note:'my phone battery’s biggest enemy'},
+  {ico:'🐧', name:'Pingo & Pingo', note:'mates for life'}
 ];
 const stampsWrap = document.getElementById('stamps');
 ADVENTURES.forEach(a=>{
@@ -715,6 +742,7 @@ const FW_TEXTS = [
   'Bejbi ♥',
   'Sretna godišnjica',
   '365 dana',
+  'Moj Pingo',
   'Zauvijek ti i ja'
 ];
 let fwTextIdx = 0;
@@ -885,6 +913,11 @@ const QUIZ = [
    correct:0,
    right:"New Year's at Dado's place. Best possible way to start a year.",
    wrong:"It was New Year's at Dado's place! The best start to a year in history."},
+  {q:"What do we call each other?",
+   opts:["Pingo 🐧","Champ","Schnitzel"],
+   correct:0,
+   right:"Pingo and Pingo. Mates for life — like real penguins. 🐧",
+   wrong:"PINGO! How could you. The penguin is devastated. 🐧"},
   {q:"Who makes the best breakfast and lunch in the world, every single day?",
    opts:["Amina","A fancy Viennese café","Benjo's cooking (lol)"],
    correct:0,
@@ -941,8 +974,8 @@ qNext.onclick = ()=>{
     res.style.display = 'block';
     document.getElementById('quiz-score').textContent = `${qScore} / ${QUIZ.length}`;
     const v = qScore === QUIZ.length ? "Perfect. Officially my other half. 🏆"
-      : qScore >= 6 ? "Very solid. Like our streak — a miss here and there, but we recover. 😌"
-      : qScore >= 3 ? "Hmm. We clearly need more trips to practice. 🛳️"
+      : qScore >= 7 ? "Very solid. Like our streak — a miss here and there, but we recover. 😌"
+      : qScore >= 4 ? "Hmm. We clearly need more trips to practice. 🛳️"
       : "Zero pressure, but we're redoing year one from the top. 😅";
     document.getElementById('quiz-verdict').textContent = v;
     burst(innerWidth/2, innerHeight/2, 18);
@@ -1032,13 +1065,38 @@ addEventListener('pointerup', ()=>{
   }
 });
 
+/* ---------- our penguin ---------- */
+const PENGUIN_LINES = [
+  "Pingo! You found me. 🐧",
+  "Penguins mate for life. Just saying. ♥",
+  "Penguins give a pebble to the one they love. This whole website is my pebble, Pingo.",
+  "Waddle waddle. Volim te.",
+  "Ja sam tvoj Pingo, ti si moj.",
+  "Pingo + Pingo = zauvijek"
+];
+const peng = document.getElementById('penguin');
+const pBub = document.getElementById('penguin-bubble');
+let pIdx = 0, pTimer = null;
+peng.addEventListener('click', ()=>{
+  pBub.textContent = PENGUIN_LINES[pIdx++ % PENGUIN_LINES.length];
+  peng.classList.add('paused');
+  pBub.classList.add('show');
+  const r = peng.getBoundingClientRect();
+  burst(r.left + r.width/2, r.top, 5);
+  clearTimeout(pTimer);
+  pTimer = setTimeout(()=>{
+    peng.classList.remove('paused');
+    pBub.classList.remove('show');
+  }, 4000);
+});
+
 /* ---------- heart bursts ---------- */
 function burst(x,y,n=6){
   if(reduceMotion) return;
   for(let k=0;k<n;k++){
     const h = document.createElement('span');
     h.className='heart-bit';
-    h.textContent=['🤎','🤍','💛','✨'][k%4];
+    h.textContent=['🤎','🤍','💛','✨','🐧'][k%5];
     h.style.left = x+(Math.random()*80-40)+'px';
     h.style.top  = y+(Math.random()*40-20)+'px';
     h.style.animationDelay = (Math.random()*.3)+'s';
