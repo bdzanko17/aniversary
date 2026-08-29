@@ -25,7 +25,7 @@
     font-family:'Karla',sans-serif;
     overflow-x:hidden;
   }
-  #dust{position:fixed;inset:0;z-index:0;pointer-events:none}
+  #dust{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
   main{position:relative;z-index:1}
 
   /* ---------- hero ---------- */
@@ -135,7 +135,7 @@
   .stop .note{font-family:'Caveat',cursive;font-size:16px;fill:var(--muted)}
 
   /* ---------- fireworks ---------- */
-  #fireworks{position:fixed;inset:0;z-index:95;pointer-events:none}
+  #fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:95;pointer-events:none}
 
   /* ---------- midnight reminder badge ---------- */
   #midnight-note{
@@ -715,20 +715,20 @@ function textFirework(){
   off.width = Math.floor(Math.min(fwCv.width*.94, 1300*dp));
   off.height = Math.floor(off.width*.3);
   const octx = off.getContext('2d');
-  octx.font = '600 ' + Math.floor(off.width/5.8) + 'px Caveat, cursive';
+  octx.font = '600 ' + Math.floor(off.width/6.6) + 'px Caveat, cursive';
   octx.textAlign = 'center'; octx.textBaseline = 'middle';
   octx.fillStyle = '#fff';
   octx.fillText('Volim te', off.width/2, off.height/2);
   const data = octx.getImageData(0,0,off.width,off.height).data;
   const step = Math.max(3, Math.round(3.4*dp));
-  const ox = (fwCv.width-off.width)/2, oy = fwCv.height*.32 - off.height/2;
+  const ox = (fwCv.width-off.width)/2, oy = fwCv.height*.42 - off.height/2;
   for(let y=0; y<off.height; y+=step){
     for(let x=0; x<off.width; x+=step){
       if(data[(y*off.width+x)*4+3] > 128){
         fwSparks.push({x:ox+x, y:oy+y,
-          vx:(Math.random()-.5)*.5*dp, vy:(Math.random()-.5)*.5*dp,
-          life:1.7, decay:.0055+Math.random()*.002, g:.004,
-          color:Math.random()<.6?'#f0c979':'#e8b4c0', size:(2.1+Math.random())*dp});
+          vx:(Math.random()-.5)*.28*dp, vy:(Math.random()-.5)*.28*dp,
+          life:1.7, decay:.0055+Math.random()*.002, g:.003,
+          color:Math.random()<.6?'#f0c979':'#e8b4c0', size:(1.3+Math.random()*.7)*dp});
       }
     }
   }
