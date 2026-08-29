@@ -364,24 +364,24 @@
         <text class="note" x="24" y="18">old city, brand new us</text>
       </g>
       <g class="stop" transform="translate(275,405)">
-        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">⛵</text>
-        <text class="name" x="-24" y="0" text-anchor="end">Split</text>
-        <text class="note" x="-24" y="18" text-anchor="end">gelato count: classified</text>
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🏖️</text>
+        <text class="name" x="-24" y="0" text-anchor="end">Neum</text>
+        <text class="note" x="-24" y="18" text-anchor="end">a little sea of our own</text>
       </g>
       <g class="stop" transform="translate(140,570)">
-        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🌊</text>
-        <text class="name" x="24" y="0">Podstrana</text>
-        <text class="note" x="24" y="18">our little escape</text>
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🏝️</text>
+        <text class="name" x="24" y="0">Pag &amp; Novalja</text>
+        <text class="note" x="24" y="18">island days, party nights</text>
       </g>
       <g class="stop" transform="translate(265,730)">
-        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🏝️</text>
-        <text class="name" x="-24" y="0" text-anchor="end">Pag</text>
-        <text class="note" x="-24" y="18" text-anchor="end">island days, tan lines</text>
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🌊</text>
+        <text class="name" x="-24" y="0" text-anchor="end">Podstrana</text>
+        <text class="note" x="-24" y="18" text-anchor="end">our little escape</text>
       </g>
       <g class="stop" transform="translate(165,890)">
-        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🌅</text>
-        <text class="name" x="24" y="0">Novalja</text>
-        <text class="note" x="24" y="18">we survived the party island</text>
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">⛵</text>
+        <text class="name" x="24" y="0">Split</text>
+        <text class="note" x="24" y="18">gelato count: classified</text>
       </g>
     </svg>
   </section>
@@ -565,10 +565,11 @@ function tick(){
 const ADVENTURES = [
   {ico:'🎡', name:'Vienna',       note:'best delivery Vienna ever got'},
   {ico:'🏰', name:'Dubrovnik',    note:'old city, brand new us'},
-  {ico:'⛵', name:'Split',        note:'gelato count: classified'},
-  {ico:'🌊', name:'Podstrana',    note:'our little escape'},
+  {ico:'🏖️', name:'Neum',         note:'a little sea of our own'},
   {ico:'🏝️', name:'Pag',          note:'questionable tan lines'},
   {ico:'🌅', name:'Novalja',      note:'we survived the party island'},
+  {ico:'🌊', name:'Podstrana',    note:'our little escape'},
+  {ico:'⛵', name:'Split',        note:'gelato count: classified'},
   {ico:'🛶', name:'Kayaking',     note:'nobody fell in (officially)'},
   {ico:'🤿', name:'Scuba diving', note:'cute even in a snorkel mask'},
   {ico:'⛴️', name:'Boat ferry',   note:'hair: destroyed. mood: perfect'},
@@ -978,6 +979,14 @@ addEventListener('click', e=>{
   if(e.target.closest('button,.polaroid,#lightbox,a')) return;
   burst(e.clientX, e.clientY, 4);
 });
+
+/* hidden fireworks preview: type "benjo", or open the page with #fireworks */
+let fwTyped = '';
+addEventListener('keydown', e=>{
+  fwTyped = (fwTyped + (e.key||'').toLowerCase()).slice(-5);
+  if(fwTyped === 'benjo') startFireworks();
+});
+if(location.hash === '#fireworks') startFireworks();
 
 /* ---------- start the clocks (last, so everything above exists) ---------- */
 tick(); setInterval(tick, 1000);
