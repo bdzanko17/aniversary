@@ -118,6 +118,37 @@
   }
   .stamp.stamped{animation:thump .4s ease}
 
+  /* ---------- journey map ---------- */
+  .journey-section{max-width:560px;margin:0 auto;padding:1rem 1.25rem 5rem;text-align:center}
+  .journey-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3.2rem)}
+  .journey-section h2 em{font-style:italic;color:var(--caramel)}
+  .journey-section>p{color:var(--muted);margin-top:.8rem;font-weight:300}
+  #journey-svg{width:100%;height:auto;margin-top:1.5rem;overflow:visible}
+  #route-ghost{fill:none;stroke:#e6dcc9;stroke-width:3;stroke-dasharray:2 9;stroke-linecap:round}
+  #route{fill:none;stroke:var(--caramel);stroke-width:3.5;stroke-linecap:round}
+  .stop{opacity:0;transform:translateY(10px) scale(.9);transition:opacity .5s ease,transform .5s ease}
+  .stop.on{opacity:1;transform:none}
+  .stop .pin{fill:#fffdf9;stroke:var(--caramel);stroke-width:2.5}
+  .stop.on .pin{stroke:var(--rose)}
+  .stop .ico{font-size:19px}
+  .stop .name{font-family:'Karla',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;fill:var(--ink)}
+  .stop .note{font-family:'Caveat',cursive;font-size:16px;fill:var(--muted)}
+
+  /* ---------- fireworks ---------- */
+  #fireworks{position:fixed;inset:0;z-index:95;pointer-events:none}
+
+  /* ---------- midnight reminder badge ---------- */
+  #midnight-note{
+    position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
+    z-index:80;background:#fffdf9;border:1px solid var(--caramel);
+    color:var(--ink);border-radius:999px;padding:.7rem 1.2rem;
+    font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;
+    box-shadow:0 12px 30px -10px rgba(74,63,51,.45);
+    animation:pulseNote 2.2s ease-in-out infinite;
+    max-width:94vw;white-space:normal;text-align:center;
+  }
+  @keyframes pulseNote{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.04)}}
+
   /* ---------- quiz ---------- */
   .quiz-section{max-width:640px;margin:0 auto;padding:1rem 1.25rem 5rem;text-align:center}
   .quiz-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3.2rem)}
@@ -286,6 +317,7 @@
 </head>
 <body>
 <canvas id="dust" aria-hidden="true"></canvas>
+<canvas id="fireworks" aria-hidden="true"></canvas>
 <main>
 
   <section class="hero">
@@ -305,7 +337,7 @@
     <div class="card" id="anno-card">
       <h2>Counting down to <em>our first anniversary</em></h2>
       <div class="tick" id="cd">–</div>
-      <p>August 30th, midnight. Almost there.</p>
+      <p>August 30th, midnight. Have this page open when it hits zero, Amina — something happens right here. 🎆</p>
     </div>
   </section>
 
@@ -313,6 +345,45 @@
     <h2>One year, so many <em>adventures</em></h2>
     <p>Tap a stamp to relive it ♥</p>
     <div class="stamps" id="stamps"></div>
+  </section>
+
+  <section class="journey-section">
+    <h2>The road we <em>traveled</em></h2>
+    <p>Keep scrolling — the route draws itself ♥</p>
+    <svg id="journey-svg" viewBox="0 0 400 940" aria-label="Map of our trips">
+      <path id="route-ghost" d="M200,50 C120,110 90,160 130,225 C170,290 300,330 275,405 C255,470 150,500 140,570 C132,635 290,660 265,730 C245,790 150,820 165,890"/>
+      <path id="route" d="M200,50 C120,110 90,160 130,225 C170,290 300,330 275,405 C255,470 150,500 140,570 C132,635 290,660 265,730 C245,790 150,820 165,890"/>
+      <g class="stop" transform="translate(200,50)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🎡</text>
+        <text class="name" x="24" y="0">Vienna</text>
+        <text class="note" x="24" y="18">where you came to me</text>
+      </g>
+      <g class="stop" transform="translate(130,225)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🏰</text>
+        <text class="name" x="24" y="0">Dubrovnik</text>
+        <text class="note" x="24" y="18">old city, brand new us</text>
+      </g>
+      <g class="stop" transform="translate(275,405)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">⛵</text>
+        <text class="name" x="-24" y="0" text-anchor="end">Split</text>
+        <text class="note" x="-24" y="18" text-anchor="end">gelato count: classified</text>
+      </g>
+      <g class="stop" transform="translate(140,570)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🌊</text>
+        <text class="name" x="24" y="0">Podstrana</text>
+        <text class="note" x="24" y="18">our little escape</text>
+      </g>
+      <g class="stop" transform="translate(265,730)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🏝️</text>
+        <text class="name" x="-24" y="0" text-anchor="end">Pag</text>
+        <text class="note" x="-24" y="18" text-anchor="end">island days, tan lines</text>
+      </g>
+      <g class="stop" transform="translate(165,890)">
+        <circle class="pin" r="14"/><text class="ico" text-anchor="middle" y="7">🌅</text>
+        <text class="name" x="24" y="0">Novalja</text>
+        <text class="note" x="24" y="18">we survived the party island</text>
+      </g>
+    </svg>
   </section>
 
   <section class="quiz-section">
@@ -365,14 +436,15 @@
         be possible).
       </p>
       <p style="margin-top:.8rem">
-        We did most of it with a few hundred kilometers between us, a 360-day
-        streak, and exactly one miss. But that's what we always do — we recover.
-        We never go to sleep angry, and we always find our way back to each
-        other. Thank you for every laugh, every late night, every photo on this
-        page — and for every breakfast and every lunch you've made me. Nobody
-        in the world takes care of me the way you do.
+        We did most of it with a few hundred kilometers between us and a
+        360-day streak. We missed a few along the way — but that's what we
+        always do: we recover. We never go to sleep angry, and we always find
+        our way back to each other. Thank you for every laugh, every late
+        night, every photo on this page — and for every breakfast and every
+        lunch you've made me. Nobody in the world takes care of me the way
+        you do.
       </p>
-      <p style="margin-top:.8rem">Here's to year two. Same us — hopefully fewer stairs than Dubrovnik.</p>
+      <p style="margin-top:.8rem">Here's to year two. Same us, even more adventures.</p>
       <p class="sign">— with all my love, your Benjo ♥</p>
     </div>
   </section>
@@ -382,7 +454,7 @@
     <p>Scratch it. With your finger. Yes, really.</p>
     <div id="scratch-wrap">
       <div id="scratch-prize">
-        <img src="photos/8e4e4d09-00c8-4a17-92fc-7c3ae30c3599.jpg" alt="Us, where it all began">
+        <img src="photos/IMG_4821.jpg" alt="Us — forever mood">
         <div class="msg">I'd choose you in every lifetime.<br>Happy anniversary, Bejbi ♥</div>
       </div>
       <canvas id="scratch-cv"></canvas>
@@ -391,6 +463,8 @@
 
   <footer>made with <b>♥</b> for Amina (and a concerning number of ferry tickets) · 30.08.2025 → forever</footer>
 </main>
+
+<button id="midnight-note">🎆 Amina — open this page right at midnight. Trust me.</button>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
@@ -404,7 +478,7 @@
 const PHOTOS = [
   "photos/8e4e4d09-00c8-4a17-92fc-7c3ae30c3599.jpg",
   "photos/IMG_0475.jpg","photos/IMG_3439.jpg","photos/IMG_3595.jpg",
-  "photos/IMG_3816.jpg","photos/IMG_3822.jpg","photos/IMG_3825.jpg",
+  "photos/IMG_3816.jpg","photos/IMG_3825.jpg",
   "photos/IMG_3826.jpg","photos/IMG_3877.jpg","photos/IMG_4219.jpg",
   "photos/IMG_4229.jpg","photos/IMG_4285.jpg","photos/IMG_4344.jpg",
   "photos/IMG_4475.jpg","photos/IMG_4571.jpg","photos/IMG_4596.jpg",
@@ -418,7 +492,7 @@ const PHOTOS = [
 ];
 const CAPTIONS = [
   "where it all began","just us","golden hour","that smile","adventure day",
-  "my favorite view","we look good. as usual.","somewhere beautiful","hand in hand",
+  "we look good. as usual.","somewhere beautiful","hand in hand",
   "little moments","this one's a keeper","sunshine & you","date night",
   "us being us","couldn't stop smiling","my whole heart","photographer of the year (me)",
   "forever mood","still can't believe you said yes to date #2","lucky me","home is you",
@@ -478,16 +552,19 @@ function tick(){
     card.classList.add('party');
     card.querySelector('h2').innerHTML = 'Happy <em>first anniversary</em>, Amina! 🎉';
     document.getElementById('cd').textContent = '30 . 08 . 2026 ♥';
-    card.querySelector('p').textContent = 'One whole year. Here’s to all the rest.';
+    card.querySelector('p').textContent = 'One whole year. Here’s to all the rest. The fireworks are for you. 🎆';
+    const note = document.getElementById('midnight-note');
+    if(note) note.remove();
     burst(innerWidth/2, innerHeight/2, 24);
+    startFireworks();
   }
 }
-tick(); setInterval(tick, 1000);
+// tick() is started at the end of the script, after the fireworks are set up
 
 /* ---------- adventure stamps ---------- */
 const ADVENTURES = [
   {ico:'🎡', name:'Vienna',       note:'best delivery Vienna ever got'},
-  {ico:'🏰', name:'Dubrovnik',    note:'walked the walls, complained about stairs'},
+  {ico:'🏰', name:'Dubrovnik',    note:'old city, brand new us'},
   {ico:'⛵', name:'Split',        note:'gelato count: classified'},
   {ico:'🌊', name:'Podstrana',    note:'our little escape'},
   {ico:'🏝️', name:'Pag',          note:'questionable tan lines'},
@@ -496,7 +573,7 @@ const ADVENTURES = [
   {ico:'🤿', name:'Scuba diving', note:'cute even in a snorkel mask'},
   {ico:'⛴️', name:'Boat ferry',   note:'hair: destroyed. mood: perfect'},
   {ico:'💍', name:'2 weddings',   note:'danced like nobody filmed us (they did)'},
-  {ico:'🔥', name:'360-day streak', note:'one miss. we don’t talk about it.'},
+  {ico:'🔥', name:'360-day streak', note:'a few misses — we always recover'},
   {ico:'📱', name:'Long distance', note:'my phone battery’s biggest enemy'}
 ];
 const stampsWrap = document.getElementById('stamps');
@@ -606,6 +683,104 @@ env.onclick = ()=>{
   env.textContent = open ? '💖' : '💌';
 };
 
+/* ---------- journey map ---------- */
+const jSvg = document.getElementById('journey-svg');
+const route = document.getElementById('route');
+const routeLen = route.getTotalLength();
+route.style.strokeDasharray = routeLen;
+route.style.strokeDashoffset = routeLen;
+const stopEls = [...jSvg.querySelectorAll('.stop')];
+const stopFr = [.02,.22,.42,.61,.8,.97];
+function updateJourney(){
+  const r = jSvg.getBoundingClientRect();
+  let p = (innerHeight*.85 - r.top) / r.height;
+  p = Math.max(0, Math.min(1, p));
+  if(reduceMotion) p = 1;
+  route.style.strokeDashoffset = routeLen*(1-p);
+  stopEls.forEach((el,i)=>el.classList.toggle('on', p >= stopFr[i]));
+}
+addEventListener('scroll', updateJourney, {passive:true});
+addEventListener('resize', updateJourney);
+updateJourney();
+
+/* ---------- fireworks ---------- */
+const fwCv = document.getElementById('fireworks'), fwCtx = fwCv.getContext('2d');
+const FW_COLORS = ['#f0c979','#cf9ba4','#fff3dd','#d9b078','#c9a6e0','#e8b4c0'];
+let fwOn = false, fwStart = 0, fwLast = 0, rockets = [], fwSparks = [];
+function sizeFw(){
+  fwCv.width = innerWidth * devicePixelRatio;
+  fwCv.height = innerHeight * devicePixelRatio;
+}
+function launchRocket(){
+  const dp = devicePixelRatio;
+  rockets.push({
+    x: fwCv.width*(.12+.76*Math.random()),
+    y: fwCv.height,
+    vy: -(9+Math.random()*3.5)*dp,
+    vx: (Math.random()*1.6-.8)*dp,
+    targetY: fwCv.height*(.12+.33*Math.random()),
+    color: FW_COLORS[Math.floor(Math.random()*FW_COLORS.length)],
+    heart: Math.random() < .3
+  });
+}
+function explode(r){
+  const dp = devicePixelRatio;
+  if(r.heart){
+    for(let t=0; t<Math.PI*2; t+=Math.PI/28){
+      const hx = 16*Math.pow(Math.sin(t),3);
+      const hy = -(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+      const sp = (.22+Math.random()*.08)*dp;
+      fwSparks.push({x:r.x,y:r.y,vx:hx*sp,vy:hy*sp,life:1,decay:.008+Math.random()*.004,
+                     color:Math.random()<.5?'#e8b4c0':'#f0c979',size:(2+Math.random())*dp});
+    }
+  }else{
+    const n = 55+Math.floor(Math.random()*30);
+    for(let k=0;k<n;k++){
+      const a = Math.random()*Math.PI*2, sp = (2+Math.random()*4.5)*dp;
+      fwSparks.push({x:r.x,y:r.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,
+                     decay:.009+Math.random()*.007,color:r.color,size:(1.5+Math.random()*1.5)*dp});
+    }
+  }
+}
+function fwLoop(now){
+  if(!fwOn) return;
+  const dp = devicePixelRatio;
+  // big opening show for 25s, then ambient all night
+  const cadence = (now - fwStart < 25000) ? 380 : 2100;
+  if(now - fwLast > cadence){ fwLast = now; launchRocket(); if(now-fwStart<25000 && Math.random()<.4) launchRocket(); }
+  fwCtx.clearRect(0,0,fwCv.width,fwCv.height);
+  for(let i=rockets.length-1;i>=0;i--){
+    const r = rockets[i];
+    r.x += r.vx; r.y += r.vy; r.vy += .04*dp;
+    fwCtx.globalAlpha = .9;
+    fwCtx.fillStyle = r.color;
+    fwCtx.beginPath(); fwCtx.arc(r.x,r.y,2.2*dp,0,7); fwCtx.fill();
+    fwCtx.globalAlpha = .25;
+    fwCtx.fillRect(r.x-.8*dp, r.y, 1.6*dp, 14*dp);
+    if(r.y <= r.targetY){ explode(r); rockets.splice(i,1); }
+  }
+  for(let i=fwSparks.length-1;i>=0;i--){
+    const s = fwSparks[i];
+    s.x += s.vx; s.y += s.vy;
+    s.vx *= .985; s.vy = s.vy*.985 + .045*dp;
+    s.life -= s.decay;
+    if(s.life <= 0){ fwSparks.splice(i,1); continue; }
+    fwCtx.globalAlpha = Math.max(0, s.life * (Math.random()<.12 ? .4 : 1));
+    fwCtx.fillStyle = s.color;
+    fwCtx.beginPath(); fwCtx.arc(s.x,s.y,s.size*s.life,0,7); fwCtx.fill();
+  }
+  fwCtx.globalAlpha = 1;
+  requestAnimationFrame(fwLoop);
+}
+function startFireworks(){
+  if(fwOn || reduceMotion) return;
+  fwOn = true;
+  sizeFw();
+  fwStart = performance.now(); fwLast = 0;
+  requestAnimationFrame(fwLoop);
+}
+addEventListener('resize', ()=>{ if(fwOn) sizeFw(); });
+
 /* ---------- quiz ---------- */
 const QUIZ = [
   {q:"When did we officially become us?",
@@ -623,11 +798,11 @@ const QUIZ = [
    correct:1,
    right:"Two! And we absolutely stole the show both times.",
    wrong:"It was two — and the dance floor has never recovered."},
-  {q:"Our streak hit 360 days. How many did we miss?",
-   opts:["Zero, we're perfect","One. We don't talk about it.","Who's counting?"],
+  {q:"Our streak hit 360 days. What happens when we miss one?",
+   opts:["We panic","We recover. Always.","We blame each other"],
    correct:1,
-   right:"One. And we recovered — because that's what we always do.",
-   wrong:"It was one. ONE. We agreed never to speak of it — and yet, here we are."},
+   right:"Always. That's just what we do. ♥",
+   wrong:"Nope — we recover. Every single time. That's our thing."},
   {q:"Which islands survived a visit from us?",
    opts:["Pag & Novalja — barely","Mallorca","We've never been to an island"],
    correct:0,
@@ -694,7 +869,7 @@ qNext.onclick = ()=>{
     res.style.display = 'block';
     document.getElementById('quiz-score').textContent = `${qScore} / ${QUIZ.length}`;
     const v = qScore === QUIZ.length ? "Perfect. Officially my other half. 🏆"
-      : qScore >= 6 ? "Very solid. The one miss? We don't talk about it. 😌"
+      : qScore >= 6 ? "Very solid. Like our streak — a miss here and there, but we recover. 😌"
       : qScore >= 3 ? "Hmm. We clearly need more trips to practice. 🛳️"
       : "Zero pressure, but we're redoing year one from the top. 😅";
     document.getElementById('quiz-verdict').textContent = v;
@@ -803,6 +978,14 @@ addEventListener('click', e=>{
   if(e.target.closest('button,.polaroid,#lightbox,a')) return;
   burst(e.clientX, e.clientY, 4);
 });
+
+/* ---------- start the clocks (last, so everything above exists) ---------- */
+tick(); setInterval(tick, 1000);
+const mNote = document.getElementById('midnight-note');
+if(mNote){
+  if(new Date() >= ANNIVERSARY) mNote.remove();
+  else mNote.onclick = ()=>document.getElementById('midnight').scrollIntoView({behavior:'smooth'});
+}
 </script>
 </body>
 </html>
