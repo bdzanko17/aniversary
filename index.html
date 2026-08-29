@@ -118,6 +118,63 @@
   }
   .stamp.stamped{animation:thump .4s ease}
 
+  /* ---------- quiz ---------- */
+  .quiz-section{max-width:640px;margin:0 auto;padding:1rem 1.25rem 5rem;text-align:center}
+  .quiz-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3.2rem)}
+  .quiz-section h2 em{font-style:italic;color:var(--rose)}
+  .quiz-section>p{color:var(--muted);margin-top:.8rem;font-weight:300}
+  #quiz-card{margin-top:2rem;text-align:left}
+  #quiz-q{font-family:'Fraunces',serif;font-weight:400;font-size:1.25rem;line-height:1.35}
+  #quiz-progress{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--caramel);margin-bottom:.9rem;font-weight:600}
+  .quiz-opts{display:flex;flex-direction:column;gap:.7rem;margin-top:1.4rem}
+  .quiz-opt{
+    font-family:'Karla',sans-serif;font-size:1rem;text-align:left;
+    background:#faf5ec;border:1px solid #e6dcc9;border-radius:12px;
+    padding:.85rem 1.1rem;cursor:pointer;color:var(--ink);
+    transition:border-color .2s,background .2s,transform .15s;
+  }
+  .quiz-opt:hover{border-color:var(--caramel);transform:translateX(4px)}
+  .quiz-opt:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+  .quiz-opt.right{background:#e9f0dd;border-color:#9db07a}
+  .quiz-opt.wrong{background:#f7e3e0;border-color:#d19a92}
+  .quiz-opt:disabled{cursor:default}
+  #quiz-feedback{margin-top:1.1rem;font-family:'Caveat',cursive;font-size:1.35rem;color:var(--caramel);min-height:1.6em}
+  #quiz-next{margin-top:1rem}
+  #quiz-result{display:none;text-align:center}
+  #quiz-result .score{font-family:'Fraunces',serif;font-size:clamp(2.5rem,9vw,4rem);color:var(--caramel);font-weight:300;margin:.6rem 0}
+  #quiz-result .verdict{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--ink)}
+
+  /* ---------- reasons ---------- */
+  .reasons-section{max-width:620px;margin:0 auto;padding:0 1.25rem 5.5rem;text-align:center}
+  .reasons-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3rem)}
+  .reasons-section h2 em{font-style:italic;color:var(--caramel)}
+  #reason-box{
+    margin:1.8rem auto 0;min-height:4.6em;max-width:44ch;
+    font-family:'Caveat',cursive;font-size:clamp(1.5rem,5vw,1.9rem);line-height:1.4;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+  }
+  #reason-box.pop{animation:reasonPop .45s ease}
+  @keyframes reasonPop{from{opacity:0;transform:scale(.85) rotate(-1.5deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+  .reasons-section .pill{margin-top:.5rem}
+
+  /* ---------- scratch card ---------- */
+  .scratch-section{max-width:560px;margin:0 auto;padding:0 1.25rem 6rem;text-align:center}
+  .scratch-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.7rem,5.5vw,2.6rem)}
+  .scratch-section h2 em{font-style:italic;color:var(--rose)}
+  .scratch-section>p{color:var(--muted);margin-top:.7rem;font-weight:300}
+  #scratch-wrap{
+    position:relative;margin:2rem auto 0;max-width:460px;border-radius:16px;overflow:hidden;
+    box-shadow:0 24px 50px -24px rgba(74,63,51,.45);border:1px solid #e6dcc9;
+    touch-action:none;
+  }
+  #scratch-prize{
+    background:#fffdf9;padding:2.6rem 1.6rem;
+  }
+  #scratch-prize img{width:130px;height:130px;object-fit:cover;border-radius:50%;border:4px solid var(--panel)}
+  #scratch-prize .msg{font-family:'Caveat',cursive;font-size:1.7rem;color:var(--ink);margin-top:1.1rem;line-height:1.35}
+  #scratch-cv{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+  #scratch-cv.done{transition:opacity .8s ease;opacity:0;pointer-events:none}
+
   /* ---------- polaroid table ---------- */
   .table-section{padding:1.5rem 0 5rem}
   .table-head{text-align:center;padding:0 1.25rem;margin-bottom:1rem}
@@ -258,6 +315,26 @@
     <div class="stamps" id="stamps"></div>
   </section>
 
+  <section class="quiz-section">
+    <h2>How well do you <em>know us</em>?</h2>
+    <p>Seven questions. No pressure, Amina. (Some pressure.)</p>
+    <div class="card" id="quiz-card">
+      <div id="quiz-play">
+        <div id="quiz-progress"></div>
+        <div id="quiz-q"></div>
+        <div class="quiz-opts" id="quiz-opts"></div>
+        <div id="quiz-feedback"></div>
+        <button class="pill" id="quiz-next" style="display:none">Next</button>
+      </div>
+      <div id="quiz-result">
+        <div id="quiz-progress-done" style="font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--caramel);font-weight:600">final score</div>
+        <div class="score" id="quiz-score"></div>
+        <div class="verdict" id="quiz-verdict"></div>
+        <button class="pill" id="quiz-again" style="margin-top:1.4rem">Try again</button>
+      </div>
+    </div>
+  </section>
+
   <section class="table-section">
     <div class="table-head">
       <h2>Our year, in <em>polaroids</em></h2>
@@ -267,6 +344,12 @@
       </div>
     </div>
     <div id="table" aria-label="Photo gallery"></div>
+  </section>
+
+  <section class="reasons-section">
+    <h2>Reasons I love you, <em>randomized</em></h2>
+    <div id="reason-box">tap the button. I have a list.</div>
+    <button class="pill" id="reason-btn">Another reason</button>
   </section>
 
   <section class="letter-section">
@@ -283,13 +366,26 @@
       </p>
       <p style="margin-top:.8rem">
         We did most of it with a few hundred kilometers between us, a 360-day
-        streak, and exactly one miss — which we don't talk about, because we
-        recovered like champions. That's kind of our thing: we always find our
-        way back to each other. Thank you for every laugh, every late night,
-        and every photo on this page.
+        streak, and exactly one miss. But that's what we always do — we recover.
+        We never go to sleep angry, and we always find our way back to each
+        other. Thank you for every laugh, every late night, every photo on this
+        page — and for every breakfast and every lunch you've made me. Nobody
+        in the world takes care of me the way you do.
       </p>
       <p style="margin-top:.8rem">Here's to year two. Same us — hopefully fewer stairs than Dubrovnik.</p>
-      <p class="sign">— with all my love ♥</p>
+      <p class="sign">— with all my love, your Benjo ♥</p>
+    </div>
+  </section>
+
+  <section class="scratch-section">
+    <h2>One last <em>surprise</em></h2>
+    <p>Scratch it. With your finger. Yes, really.</p>
+    <div id="scratch-wrap">
+      <div id="scratch-prize">
+        <img src="photos/8e4e4d09-00c8-4a17-92fc-7c3ae30c3599.jpg" alt="Us, where it all began">
+        <div class="msg">I'd choose you in every lifetime.<br>Happy anniversary, Amina ♥</div>
+      </div>
+      <canvas id="scratch-cv"></canvas>
     </div>
   </section>
 
@@ -509,6 +605,180 @@ env.onclick = ()=>{
   env.setAttribute('aria-expanded', open);
   env.textContent = open ? '💖' : '💌';
 };
+
+/* ---------- quiz ---------- */
+const QUIZ = [
+  {q:"When did we officially become us?",
+   opts:["29.08.2025 — close enough","30.08.2025","Honestly, it feels like forever (in a good way)"],
+   correct:1,
+   right:"Correct. Best day of that entire year.",
+   wrong:"It's literally the date this whole website is about. 30.08.2025!"},
+  {q:"What did nobody do while kayaking? (officially)",
+   opts:["Fall in","Paddle in circles","Blame the other one for steering"],
+   correct:0,
+   right:"Exactly. Officially. We have no photographic evidence otherwise.",
+   wrong:"Nice try — officially, nobody fell in. OFFICIALLY."},
+  {q:"How many weddings did we dance through this year?",
+   opts:["One","Two","Enough that people think we're professionals"],
+   correct:1,
+   right:"Two! And we absolutely stole the show both times.",
+   wrong:"It was two — and the dance floor has never recovered."},
+  {q:"Our streak hit 360 days. How many did we miss?",
+   opts:["Zero, we're perfect","One. We don't talk about it.","Who's counting?"],
+   correct:1,
+   right:"One. And we recovered — because that's what we always do.",
+   wrong:"It was one. ONE. We agreed never to speak of it — and yet, here we are."},
+  {q:"Which islands survived a visit from us?",
+   opts:["Pag & Novalja — barely","Mallorca","We've never been to an island"],
+   correct:0,
+   right:"Barely being the key word.",
+   wrong:"Pag and Novalja! They're still recovering."},
+  {q:"Who makes the best breakfast and lunch in the world, every single day?",
+   opts:["Amina","A fancy Viennese café","Benjo's cooking (lol)"],
+   correct:0,
+   right:"Every. Single. Day. I'm the luckiest person alive.",
+   wrong:"Benjo's cooking?? Be serious. It's you — every single day. ♥"},
+  {q:"What's the best thing that ever arrived in Vienna?",
+   opts:["Amina","Amina, obviously","See answers A and B"],
+   correct:-1,
+   right:"Trick question. Every answer was you. ♥",
+   wrong:""}
+];
+let qi = 0, qScore = 0, qAnswered = false;
+const qQ = document.getElementById('quiz-q'), qOpts = document.getElementById('quiz-opts'),
+      qFb = document.getElementById('quiz-feedback'), qNext = document.getElementById('quiz-next'),
+      qProg = document.getElementById('quiz-progress');
+function showQuestion(){
+  const item = QUIZ[qi];
+  qAnswered = false;
+  qProg.textContent = `question ${qi+1} / ${QUIZ.length}`;
+  qQ.textContent = item.q;
+  qFb.textContent = '';
+  qNext.style.display = 'none';
+  qOpts.innerHTML = '';
+  item.opts.forEach((o,idx)=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt'; b.textContent = o;
+    b.onclick = ()=>{
+      if(qAnswered) return;
+      qAnswered = true;
+      const isRight = item.correct === -1 || idx === item.correct;
+      if(isRight){
+        b.classList.add('right'); qScore++;
+        qFb.textContent = item.right;
+        const r = b.getBoundingClientRect();
+        burst(r.left + r.width/2, r.top, 5);
+      }else{
+        b.classList.add('wrong');
+        qOpts.children[item.correct].classList.add('right');
+        qFb.textContent = item.wrong;
+      }
+      [...qOpts.children].forEach(x=>x.disabled = true);
+      qNext.style.display = 'inline-block';
+      qNext.textContent = qi === QUIZ.length-1 ? 'See my score' : 'Next';
+    };
+    qOpts.appendChild(b);
+  });
+}
+qNext.onclick = ()=>{
+  qi++;
+  if(qi < QUIZ.length){ showQuestion(); }
+  else{
+    document.getElementById('quiz-play').style.display = 'none';
+    const res = document.getElementById('quiz-result');
+    res.style.display = 'block';
+    document.getElementById('quiz-score').textContent = `${qScore} / ${QUIZ.length}`;
+    const v = qScore === QUIZ.length ? "Perfect. Officially my other half. 🏆"
+      : qScore >= 5 ? "Very solid. The one miss? We don't talk about it. 😌"
+      : qScore >= 2 ? "Hmm. We clearly need more trips to practice. 🛳️"
+      : "Zero pressure, but we're redoing year one from the top. 😅";
+    document.getElementById('quiz-verdict').textContent = v;
+    burst(innerWidth/2, innerHeight/2, 18);
+  }
+};
+document.getElementById('quiz-again').onclick = ()=>{
+  qi = 0; qScore = 0;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-play').style.display = 'block';
+  showQuestion();
+};
+showQuestion();
+
+/* ---------- random reasons ---------- */
+const REASONS = [
+  "You make 600 kilometers feel like nothing.",
+  "You laugh at my jokes. Even the bad ones. Especially the bad ones.",
+  "You came all the way to Vienna and made it feel like home.",
+  "You'll get in a kayak with me and only mildly panic.",
+  "You look cute in a scuba mask. That shouldn't be possible.",
+  "You out-danced everyone at both weddings.",
+  "You never let our streak die (except that one time — champions recover).",
+  "Your good-morning texts fix entire days.",
+  "You turn ferry rides into adventures and waiting rooms into dates.",
+  "Breakfast and lunch, every single day. You take care of me like it's the easiest thing in the world.",
+  "Nobody has ever cared for me the way you do. Nobody ever will.",
+  "You know exactly what I'm thinking with one look. Terrifying. Love it.",
+  "Every city is prettier with you in it. Ask Dubrovnik.",
+  "You make ordinary Tuesdays feel like Novalja summers.",
+  "You believe in us harder than anyone I've ever met.",
+  "Because it's you. It was always going to be you."
+];
+let lastReason = -1;
+document.getElementById('reason-btn').onclick = e=>{
+  let r;
+  do{ r = Math.floor(Math.random()*REASONS.length); }while(r === lastReason);
+  lastReason = r;
+  const box = document.getElementById('reason-box');
+  box.textContent = REASONS[r];
+  box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
+  burst(e.clientX, e.clientY, 4);
+};
+
+/* ---------- scratch card ---------- */
+const sWrap = document.getElementById('scratch-wrap'), sCv = document.getElementById('scratch-cv');
+const sCtx = sCv.getContext('2d');
+let sDone = false, sDown = false;
+function paintScratch(){
+  const r = sWrap.getBoundingClientRect();
+  sCv.width = r.width * devicePixelRatio;
+  sCv.height = r.height * devicePixelRatio;
+  const g = sCtx.createLinearGradient(0,0,sCv.width,sCv.height);
+  g.addColorStop(0,'#e8ddc8'); g.addColorStop(.5,'#dccfb4'); g.addColorStop(1,'#e8ddc8');
+  sCtx.fillStyle = g;
+  sCtx.fillRect(0,0,sCv.width,sCv.height);
+  sCtx.fillStyle = '#a3927c';
+  sCtx.font = `600 ${16*devicePixelRatio}px Karla, sans-serif`;
+  sCtx.textAlign = 'center';
+  sCtx.fillText('S C R A T C H   M E ✨', sCv.width/2, sCv.height/2);
+}
+paintScratch();
+addEventListener('resize', ()=>{ if(!sDone) paintScratch(); });
+function scratchAt(x,y){
+  const r = sCv.getBoundingClientRect();
+  sCtx.globalCompositeOperation = 'destination-out';
+  sCtx.beginPath();
+  sCtx.arc((x-r.left)*devicePixelRatio, (y-r.top)*devicePixelRatio, 26*devicePixelRatio, 0, 7);
+  sCtx.fill();
+  sCtx.globalCompositeOperation = 'source-over';
+}
+function scratchProgress(){
+  const d = sCtx.getImageData(0,0,sCv.width,sCv.height).data;
+  let clear = 0;
+  for(let p=3; p<d.length; p+=64) if(d[p]===0) clear++;
+  return clear/(d.length/64);
+}
+sCv.addEventListener('pointerdown', e=>{ sDown = true; scratchAt(e.clientX,e.clientY); });
+sCv.addEventListener('pointermove', e=>{ if(sDown && !sDone) scratchAt(e.clientX,e.clientY); });
+addEventListener('pointerup', ()=>{
+  if(!sDown) return;
+  sDown = false;
+  if(!sDone && scratchProgress() > .45){
+    sDone = true;
+    sCv.classList.add('done');
+    const r = sWrap.getBoundingClientRect();
+    burst(r.left + r.width/2, r.top + r.height/2, 14);
+  }
+});
 
 /* ---------- heart bursts ---------- */
 function burst(x,y,n=6){
