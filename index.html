@@ -708,17 +708,39 @@ updateJourney();
 const fwCv = document.getElementById('fireworks'), fwCtx = fwCv.getContext('2d');
 const FW_COLORS = ['#f0c979','#cf9ba4','#fff3dd','#d9b078','#c9a6e0','#e8b4c0'];
 let fwOn = false, fwStart = 0, fwLast = 0, rockets = [], fwSparks = [], fwVeil = 0, showUntil = 0, lastMini = 0, lastText = 0;
-/* spell "Volim te" in sparks: render text offscreen, sample the pixels, light them up */
+/* spell messages in sparks: render text offscreen, sample the pixels, light them up */
+const FW_TEXTS = [
+  'Volim te',
+  'Hvala ti za sve',
+  'Bejbi ♥',
+  'Sretna godišnjica',
+  '365 dana',
+  'Zauvijek ti i ja'
+];
+let fwTextIdx = 0;
 function textFirework(){
   const dp = devicePixelRatio;
+  const msg = FW_TEXTS[fwTextIdx++ % FW_TEXTS.length];
+  // long messages break onto two lines so the letters stay big and readable
+  let lines = [msg];
+  if(msg.length > 10 && msg.includes(' ')){
+    const words = msg.split(' ');
+    let l1 = '', l2 = '';
+    for(const w of words){
+      if(!l1 || (l1+' '+w).length <= msg.length/2) l1 = (l1+' '+w).trim();
+      else l2 = (l2+' '+w).trim();
+    }
+    if(l2) lines = [l1, l2];
+  }
+  const longest = Math.max(...lines.map(l=>l.length));
   const off = document.createElement('canvas');
   off.width = Math.floor(Math.min(fwCv.width*.94, 1300*dp));
-  off.height = Math.floor(off.width*.3);
+  off.height = Math.floor(off.width*(lines.length>1 ? .52 : .3));
   const octx = off.getContext('2d');
-  octx.font = '600 ' + Math.floor(off.width/6.6) + 'px Caveat, cursive';
+  octx.font = '600 ' + Math.floor(off.width/Math.max(6.6, longest*.62)) + 'px Caveat, cursive';
   octx.textAlign = 'center'; octx.textBaseline = 'middle';
   octx.fillStyle = '#fff';
-  octx.fillText('Volim te', off.width/2, off.height/2);
+  lines.forEach((ln,i)=>octx.fillText(ln, off.width/2, off.height*(lines.length>1 ? .28+.44*i : .5)));
   const data = octx.getImageData(0,0,off.width,off.height).data;
   const step = Math.max(3, Math.round(3.4*dp));
   const ox = (fwCv.width-off.width)/2, oy = fwCv.height*.42 - off.height/2;
@@ -783,8 +805,8 @@ function fwLoop(now){
     if(inShow && Math.random()<.7) launchRocket();
     if(inShow && Math.random()<.35) launchRocket();
   }
-  // "Volim te" appears a few seconds into every show, then again each minute
-  if(inShow && now - lastText > 60000){ lastText = now; textFirework(); }
+  // a message appears a few seconds into every show, then a new one every ~13s
+  if(inShow && now - lastText > 13000){ lastText = now; textFirework(); }
   fwCtx.clearRect(0,0,fwCv.width,fwCv.height);
   fwCtx.fillStyle = 'rgba(18,11,26,' + fwVeil.toFixed(3) + ')';
   fwCtx.fillRect(0,0,fwCv.width,fwCv.height);
@@ -822,7 +844,7 @@ function startFireworks(){
   if(reduceMotion) return;
   showUntil = performance.now() + 28000;   // re-triggering extends/restarts the big show
   lastMini = performance.now();
-  lastText = performance.now() - 56000;    // so "Volim te" lights up ~4s into the show
+  lastText = performance.now() - 9000;    // so the first message lights up ~4s into the show
   if(fwOn) return;
   fwOn = true;
   sizeFw();
