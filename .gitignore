@@ -1,0 +1,4 @@
+*.HEIC
+/IMG_*.jpg
+/*.JPG
+.DS_Store

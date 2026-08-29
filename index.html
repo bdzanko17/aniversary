@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Year with Amina</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Karla:wght@300;400;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf7f1;
+    --panel:#f1eadd;
+    --ink:#4a3f33;
+    --caramel:#b98d5e;
+    --rose:#cf9ba4;
+    --muted:#a3927c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    overflow-x:hidden;
+  }
+  #dust{position:fixed;inset:0;z-index:0;pointer-events:none}
+  main{position:relative;z-index:1}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:2rem 1.25rem;position:relative;
+  }
+  .dates{
+    font-weight:600;font-size:.78rem;
+    letter-spacing:.45em;color:var(--caramel);text-transform:uppercase;
+    margin-bottom:1.5rem;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:340;
+    font-size:clamp(2.7rem,11vw,7rem);
+    line-height:1.04;letter-spacing:-.01em;
+  }
+  h1 em{font-style:italic;color:var(--caramel);font-weight:400}
+  .sub{
+    margin-top:1.4rem;color:var(--muted);font-size:1.05rem;font-weight:300;
+    max-width:36ch;
+  }
+  .counter{display:flex;gap:clamp(.8rem,4vw,2.2rem);margin-top:3rem}
+  .unit{display:flex;flex-direction:column;align-items:center;gap:.35rem}
+  .unit b{
+    font-family:'Fraunces',serif;font-weight:300;font-variant-numeric:tabular-nums;
+    font-size:clamp(1.8rem,6vw,3.4rem);color:var(--ink);
+  }
+  .unit span{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .unit:first-child b{color:var(--caramel)}
+  .scroll-hint{
+    position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
+    color:var(--muted);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+    animation:bob 2.4s ease-in-out infinite;text-decoration:none;
+  }
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+
+  /* ---------- countdown / celebration ---------- */
+  .midnight{max-width:640px;margin:0 auto;padding:3.5rem 1.25rem 4.5rem;text-align:center}
+  .card{
+    background:#fffdf9;
+    border:1px solid #e6dcc9;border-radius:20px;
+    padding:2.5rem 1.5rem;
+    box-shadow:0 24px 50px -28px rgba(74,63,51,.35);
+  }
+  .card h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.4rem,4.5vw,2.1rem)}
+  .card h2 em{font-style:italic;color:var(--caramel)}
+  .tick{
+    margin-top:1.4rem;font-family:'Fraunces',serif;font-weight:300;
+    font-size:clamp(2rem,8vw,3.8rem);font-variant-numeric:tabular-nums;
+    color:var(--rose);letter-spacing:.04em;
+  }
+  .card p{margin-top:1rem;color:var(--muted);font-weight:300}
+  .card.party .tick{color:var(--caramel);font-size:clamp(1.8rem,7vw,3rem)}
+
+  /* ---------- adventure stamps ---------- */
+  .stamps-section{max-width:820px;margin:0 auto;padding:1rem 1.25rem 5rem;text-align:center}
+  .stamps-section h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3.2rem)}
+  .stamps-section h2 em{font-style:italic;color:var(--caramel)}
+  .stamps-section>p{color:var(--muted);margin-top:.8rem;font-weight:300}
+  .stamps{
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:2.2rem;
+  }
+  .stamp{
+    font-family:'Karla',sans-serif;
+    border:2px dashed var(--caramel);border-radius:14px;
+    padding:.9rem 1.2rem;background:#fffdf9;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:.3rem;
+    min-width:110px;
+    transition:transform .25s,border-color .25s,box-shadow .25s;
+    box-shadow:0 8px 20px -12px rgba(74,63,51,.35);
+  }
+  .stamp:nth-child(odd){transform:rotate(-2.5deg)}
+  .stamp:nth-child(even){transform:rotate(2deg)}
+  .stamp .ico{font-size:1.7rem}
+  .stamp .name{
+    font-weight:600;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  }
+  .stamp .note{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--muted)}
+  .stamp:hover,.stamp.stamped{
+    transform:rotate(0deg) scale(1.07);border-color:var(--rose);
+    box-shadow:0 14px 28px -12px rgba(74,63,51,.45);
+  }
+  .stamp:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+  @keyframes thump{
+    0%{transform:scale(1.6) rotate(-8deg);opacity:.4}
+    60%{transform:scale(.95) rotate(1deg);opacity:1}
+    100%{transform:scale(1.07) rotate(0deg)}
+  }
+  .stamp.stamped{animation:thump .4s ease}
+
+  /* ---------- polaroid table ---------- */
+  .table-section{padding:1.5rem 0 5rem}
+  .table-head{text-align:center;padding:0 1.25rem;margin-bottom:1rem}
+  .table-head h2{font-family:'Fraunces',serif;font-weight:350;font-size:clamp(1.9rem,6vw,3.2rem)}
+  .table-head h2 em{font-style:italic;color:var(--rose)}
+  .table-head p{color:var(--muted);margin-top:.8rem;font-weight:300}
+  .table-actions{margin-top:1.3rem;display:flex;gap:.8rem;justify-content:center}
+  button.pill{
+    font-family:'Karla',sans-serif;font-weight:600;font-size:.78rem;
+    letter-spacing:.18em;text-transform:uppercase;
+    background:none;border:1px solid var(--caramel);color:var(--caramel);
+    padding:.7rem 1.5rem;border-radius:999px;cursor:pointer;
+    transition:background .25s,color .25s;
+  }
+  button.pill:hover{background:var(--caramel);color:#fffdf9}
+  button.pill:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+  #table{position:relative;height:140vh;max-height:1300px;margin-top:2rem}
+  .polaroid{
+    position:absolute;width:clamp(140px,30vw,225px);
+    background:#ffffff;padding:9px 9px 38px;
+    box-shadow:0 10px 26px -8px rgba(74,63,51,.4);
+    cursor:grab;user-select:none;-webkit-user-select:none;
+    touch-action:none;
+    transition:box-shadow .25s;
+    border:1px solid #eee6d8;border-radius:2px;
+  }
+  .polaroid:active{cursor:grabbing}
+  .polaroid.dragging{box-shadow:0 26px 45px -10px rgba(74,63,51,.5);transition:none}
+  .polaroid img{
+    width:100%;aspect-ratio:1/1.05;object-fit:cover;display:block;
+    pointer-events:none;background:#efe9de;
+  }
+  .polaroid figcaption{
+    font-family:'Caveat',cursive;font-size:1.2rem;color:#6b5b49;
+    text-align:center;margin-top:7px;pointer-events:none;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  /* ---------- lightbox ---------- */
+  #lightbox{
+    position:fixed;inset:0;z-index:100;background:rgba(58,48,38,.92);
+    display:none;align-items:center;justify-content:center;flex-direction:column;
+    padding:2rem 1rem;
+  }
+  #lightbox.open{display:flex}
+  #lightbox img{
+    max-width:min(92vw,880px);max-height:72vh;object-fit:contain;
+    border:10px solid #fff;border-bottom-width:42px;border-radius:2px;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.7);
+  }
+  #lb-caption{font-family:'Caveat',cursive;font-size:1.6rem;color:#fdf9f1;margin-top:1rem}
+  .lb-btn{
+    position:fixed;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:#fdf9f1;font-size:2.6rem;
+    cursor:pointer;padding:1rem;opacity:.75;transition:opacity .2s;z-index:101;
+  }
+  .lb-btn:hover{opacity:1}
+  #lb-prev{left:.4rem}#lb-next{right:.4rem}
+  #lb-close{position:fixed;top:.8rem;right:1.2rem;font-size:1.9rem;transform:none}
+
+  /* ---------- letter ---------- */
+  .letter-section{max-width:620px;margin:0 auto;padding:0 1.25rem 6rem;text-align:center}
+  #envelope{
+    background:none;border:none;cursor:pointer;font-size:4.2rem;
+    filter:drop-shadow(0 12px 22px rgba(185,141,94,.35));
+    transition:transform .3s;
+  }
+  #envelope:hover{transform:scale(1.08) rotate(-3deg)}
+  #envelope:focus-visible{outline:2px solid var(--caramel);outline-offset:6px;border-radius:8px}
+  .letter-section>p{color:var(--muted);margin-top:.6rem;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase}
+  #letter{
+    display:none;margin-top:2rem;text-align:left;
+    background:#fffdf9;color:#4a3f33;border-radius:6px;border:1px solid #e6dcc9;
+    padding:2.2rem 1.8rem;font-family:'Caveat',cursive;font-size:1.45rem;line-height:1.55;
+    box-shadow:0 26px 55px -24px rgba(74,63,51,.4);
+    transform-origin:top center;
+  }
+  #letter.open{display:block;animation:unfold .7s ease}
+  @keyframes unfold{from{opacity:0;transform:scaleY(.1)}to{opacity:1;transform:scaleY(1)}}
+  #letter .sign{text-align:right;margin-top:1.2rem;font-weight:600}
+
+  footer{
+    text-align:center;padding:2.5rem 1rem 3.5rem;color:var(--muted);
+    font-size:.85rem;font-weight:300;
+  }
+  footer b{color:var(--rose);font-weight:400}
+
+  .heart-bit{
+    position:fixed;z-index:90;pointer-events:none;font-size:1.15rem;
+    animation:floatUp 1.6s ease-out forwards;
+  }
+  @keyframes floatUp{
+    from{opacity:1;transform:translateY(0) scale(.6) rotate(0deg)}
+    to{opacity:0;transform:translateY(-130px) scale(1.35) rotate(22deg)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    html{scroll-behavior:auto}
+  }
+  @media (max-width:600px){
+    #table{height:200vh;max-height:none}
+    .polaroid{width:min(42vw,175px)}
+    .lb-btn{font-size:2rem;padding:.4rem}
+    #lightbox img{border-width:7px;border-bottom-width:34px}
+    .counter{margin-top:2.2rem}
+  }
+</style>
+</head>
+<body>
+<canvas id="dust" aria-hidden="true"></canvas>
+<main>
+
+  <section class="hero">
+    <p class="dates">30 · 08 · 2025 &nbsp;—&nbsp; 30 · 08 · 2026</p>
+    <h1>One year<br>with <em>Amina</em></h1>
+    <p class="sub">Every second of it counted. Literally — we're counting them right here.</p>
+    <div class="counter" id="counter">
+      <div class="unit"><b id="c-days">–</b><span>days</span></div>
+      <div class="unit"><b id="c-hours">–</b><span>hours</span></div>
+      <div class="unit"><b id="c-mins">–</b><span>minutes</span></div>
+      <div class="unit"><b id="c-secs">–</b><span>seconds</span></div>
+    </div>
+    <a class="scroll-hint" href="#midnight">scroll ↓</a>
+  </section>
+
+  <section class="midnight" id="midnight">
+    <div class="card" id="anno-card">
+      <h2>Counting down to <em>our first anniversary</em></h2>
+      <div class="tick" id="cd">–</div>
+      <p>August 30th, midnight. Almost there.</p>
+    </div>
+  </section>
+
+  <section class="stamps-section">
+    <h2>One year, so many <em>adventures</em></h2>
+    <p>Tap a stamp to relive it ♥</p>
+    <div class="stamps" id="stamps"></div>
+  </section>
+
+  <section class="table-section">
+    <div class="table-head">
+      <h2>Our year, in <em>polaroids</em></h2>
+      <p>Drag them around · tap one to see it up close</p>
+      <div class="table-actions">
+        <button class="pill" id="shuffle">Shuffle the table</button>
+      </div>
+    </div>
+    <div id="table" aria-label="Photo gallery"></div>
+  </section>
+
+  <section class="letter-section">
+    <button id="envelope" aria-expanded="false" aria-controls="letter">💌</button>
+    <p>open me</p>
+    <div id="letter">
+      <p>Dear Amina,</p>
+      <p style="margin-top:.8rem">
+        365 days ago we started something, and somehow every single one of them
+        got better than the last. From Vienna to Dubrovnik, Split to Pag —
+        kayaks, boats, dancing at weddings, even breathing underwater together.
+        Thank you for every laugh, every late night, every photo on this page
+        and the thousand little moments between them.
+      </p>
+      <p style="margin-top:.8rem">Here's to year two. And every one after that.</p>
+      <p class="sign">— with all my love ♥</p>
+    </div>
+  </section>
+
+  <footer>made with <b>♥</b> for Amina · 30.08.2025 → forever</footer>
+</main>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-btn" id="lb-prev" aria-label="Previous photo">‹</button>
+  <img id="lb-img" src="" alt="Photo of us">
+  <button class="lb-btn" id="lb-next" aria-label="Next photo">›</button>
+  <div id="lb-caption"></div>
+</div>
+
+<script>
+const PHOTOS = [
+  "photos/8e4e4d09-00c8-4a17-92fc-7c3ae30c3599.jpg",
+  "photos/IMG_0475.jpg","photos/IMG_3439.jpg","photos/IMG_3595.jpg",
+  "photos/IMG_3816.jpg","photos/IMG_3822.jpg","photos/IMG_3825.jpg",
+  "photos/IMG_3826.jpg","photos/IMG_3877.jpg","photos/IMG_4219.jpg",
+  "photos/IMG_4229.jpg","photos/IMG_4285.jpg","photos/IMG_4344.jpg",
+  "photos/IMG_4475.jpg","photos/IMG_4571.jpg","photos/IMG_4596.jpg",
+  "photos/IMG_4663.jpg","photos/IMG_4821.jpg","photos/IMG_4881.jpg",
+  "photos/IMG_5025.jpg","photos/IMG_5041.jpg","photos/IMG_6681.jpg",
+  "photos/IMG_9103.jpg"
+];
+const CAPTIONS = [
+  "where it all began","just us","golden hour","that smile","adventure day",
+  "my favorite view","laughing again","somewhere beautiful","hand in hand",
+  "little moments","this one's a keeper","sunshine & you","date night",
+  "us being us","couldn't stop smiling","my whole heart","one of the good days",
+  "forever mood","still can't believe it","lucky me","home is you",
+  "365 of these","and many more ♥"
+];
+const START = new Date(2025, 7, 30, 0, 0, 0);       // 30 Aug 2025
+const ANNIVERSARY = new Date(2026, 7, 30, 0, 0, 0); // 30 Aug 2026
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- floating golden dust ---------- */
+const cv = document.getElementById('dust'), ctx = cv.getContext('2d');
+let motes = [];
+function sizeCv(){
+  cv.width = innerWidth * devicePixelRatio;
+  cv.height = innerHeight * devicePixelRatio;
+  motes = Array.from({length: Math.floor(innerWidth/22)}, () => ({
+    x: Math.random()*cv.width, y: Math.random()*cv.height,
+    r: (Math.random()*1.6+.6)*devicePixelRatio,
+    vy: (.1+Math.random()*.25)*devicePixelRatio,
+    vx: (Math.random()*.16-.08)*devicePixelRatio,
+    p: Math.random()*Math.PI*2, s: .4+Math.random()
+  }));
+}
+sizeCv(); addEventListener('resize', sizeCv);
+function drawDust(t){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(const m of motes){
+    m.y -= m.vy; m.x += m.vx;
+    if(m.y < -4){ m.y = cv.height+4; m.x = Math.random()*cv.width; }
+    ctx.globalAlpha = .12 + .18*Math.abs(Math.sin(t/1200*m.s + m.p));
+    ctx.fillStyle = '#b98d5e';
+    ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, 7); ctx.fill();
+  }
+  if(!reduceMotion) requestAnimationFrame(drawDust);
+}
+requestAnimationFrame(drawDust);
+
+/* ---------- counters ---------- */
+const pad = n => String(n).padStart(2,'0');
+function tick(){
+  const now = new Date();
+  const d = now - START;
+  document.getElementById('c-days').textContent  = Math.floor(d/864e5);
+  document.getElementById('c-hours').textContent = pad(Math.floor(d/36e5)%24);
+  document.getElementById('c-mins').textContent  = pad(Math.floor(d/6e4)%60);
+  document.getElementById('c-secs').textContent  = pad(Math.floor(d/1e3)%60);
+
+  const card = document.getElementById('anno-card');
+  const left = ANNIVERSARY - now;
+  if(left > 0){
+    const h = Math.floor(left/36e5), m = Math.floor(left/6e4)%60, s = Math.floor(left/1e3)%60;
+    document.getElementById('cd').textContent = `${pad(h)} : ${pad(m)} : ${pad(s)}`;
+  } else if(!card.classList.contains('party')){
+    card.classList.add('party');
+    card.querySelector('h2').innerHTML = 'Happy <em>first anniversary</em>, Amina! 🎉';
+    document.getElementById('cd').textContent = '30 . 08 . 2026 ♥';
+    card.querySelector('p').textContent = 'One whole year. Here’s to all the rest.';
+    burst(innerWidth/2, innerHeight/2, 24);
+  }
+}
+tick(); setInterval(tick, 1000);
+
+/* ---------- adventure stamps ---------- */
+const ADVENTURES = [
+  {ico:'🎡', name:'Vienna',       note:'you came to me'},
+  {ico:'🏰', name:'Dubrovnik',    note:'city of stone & us'},
+  {ico:'⛵', name:'Split',        note:'by the sea'},
+  {ico:'🌊', name:'Podstrana',    note:'our little escape'},
+  {ico:'🏝️', name:'Pag',          note:'island days'},
+  {ico:'🌅', name:'Novalja',      note:'summer nights'},
+  {ico:'🛶', name:'Kayaking',     note:'paddling together'},
+  {ico:'🤿', name:'Scuba diving', note:'under the surface'},
+  {ico:'⛴️', name:'Boat ferry',   note:'wind in our hair'},
+  {ico:'💍', name:'2 weddings',   note:'we danced all night'}
+];
+const stampsWrap = document.getElementById('stamps');
+ADVENTURES.forEach(a=>{
+  const b = document.createElement('button');
+  b.className = 'stamp';
+  b.innerHTML = `<span class="ico">${a.ico}</span><span class="name">${a.name}</span><span class="note">${a.note}</span>`;
+  b.addEventListener('click', e=>{
+    b.classList.remove('stamped'); void b.offsetWidth; b.classList.add('stamped');
+    const r = b.getBoundingClientRect();
+    burst(r.left + r.width/2, r.top, 6);
+  });
+  stampsWrap.appendChild(b);
+});
+
+/* ---------- polaroid table ---------- */
+const table = document.getElementById('table');
+let topZ = 10;
+function layout(el, i){
+  const W = table.clientWidth, H = table.clientHeight;
+  const pw = el.offsetWidth || 200, ph = el.offsetHeight || 250;
+  el.style.left = Math.random()*Math.max(W-pw-16,1)+8+'px';
+  el.style.top  = Math.random()*Math.max(H-ph-16,1)+8+'px';
+  el.style.transform = `rotate(${(Math.random()*16-8).toFixed(1)}deg)`;
+  el.style.zIndex = 1+i;
+}
+PHOTOS.forEach((src,i)=>{
+  const f = document.createElement('figure');
+  f.className = 'polaroid';
+  f.innerHTML = `<img src="${src}" alt="${CAPTIONS[i]}" loading="lazy"><figcaption>${CAPTIONS[i]}</figcaption>`;
+  f.dataset.i = i;
+  table.appendChild(f);
+  layout(f,i);
+});
+document.getElementById('shuffle').onclick = () => {
+  table.querySelectorAll('.polaroid').forEach((el,i)=>{
+    el.style.transition = 'left .6s ease, top .6s ease, transform .6s ease';
+    layout(el,i);
+    setTimeout(()=>el.style.transition='',650);
+  });
+};
+
+/* drag + tap (pointer events work for touch and mouse) */
+let drag = null;
+table.addEventListener('pointerdown', e=>{
+  const el = e.target.closest('.polaroid'); if(!el) return;
+  drag = {el, sx:e.clientX, sy:e.clientY,
+          ox:parseFloat(el.style.left), oy:parseFloat(el.style.top), moved:false};
+  el.style.zIndex = ++topZ;
+  el.setPointerCapture(e.pointerId);
+});
+table.addEventListener('pointermove', e=>{
+  if(!drag) return;
+  const dx = e.clientX-drag.sx, dy = e.clientY-drag.sy;
+  if(Math.abs(dx)+Math.abs(dy) > 6) drag.moved = true;
+  if(drag.moved){
+    drag.el.classList.add('dragging');
+    drag.el.style.left = drag.ox+dx+'px';
+    drag.el.style.top  = drag.oy+dy+'px';
+  }
+});
+table.addEventListener('pointerup', e=>{
+  if(!drag) return;
+  drag.el.classList.remove('dragging');
+  if(!drag.moved) openLb(+drag.el.dataset.i);
+  drag = null;
+});
+table.addEventListener('pointercancel', ()=>{
+  if(drag){ drag.el.classList.remove('dragging'); drag = null; }
+});
+
+/* ---------- lightbox ---------- */
+const lb = document.getElementById('lightbox');
+let cur = 0;
+function openLb(i){
+  cur = (i+PHOTOS.length)%PHOTOS.length;
+  document.getElementById('lb-img').src = PHOTOS[cur];
+  document.getElementById('lb-caption').textContent = CAPTIONS[cur];
+  lb.classList.add('open');
+}
+document.getElementById('lb-close').onclick = ()=>lb.classList.remove('open');
+document.getElementById('lb-prev').onclick = e=>{e.stopPropagation();openLb(cur-1)};
+document.getElementById('lb-next').onclick = e=>{e.stopPropagation();openLb(cur+1)};
+lb.addEventListener('click', e=>{ if(e.target===lb) lb.classList.remove('open'); });
+addEventListener('keydown', e=>{
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') lb.classList.remove('open');
+  if(e.key==='ArrowLeft') openLb(cur-1);
+  if(e.key==='ArrowRight') openLb(cur+1);
+});
+/* swipe in lightbox */
+let swipeX = null;
+lb.addEventListener('touchstart', e=>{ swipeX = e.touches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend', e=>{
+  if(swipeX===null) return;
+  const dx = e.changedTouches[0].clientX - swipeX;
+  if(dx > 50) openLb(cur-1); else if(dx < -50) openLb(cur+1);
+  swipeX = null;
+}, {passive:true});
+
+/* ---------- letter ---------- */
+const env = document.getElementById('envelope');
+env.onclick = ()=>{
+  const l = document.getElementById('letter');
+  const open = l.classList.toggle('open');
+  env.setAttribute('aria-expanded', open);
+  env.textContent = open ? '💖' : '💌';
+};
+
+/* ---------- heart bursts ---------- */
+function burst(x,y,n=6){
+  if(reduceMotion) return;
+  for(let k=0;k<n;k++){
+    const h = document.createElement('span');
+    h.className='heart-bit';
+    h.textContent=['🤎','🤍','💛','✨'][k%4];
+    h.style.left = x+(Math.random()*80-40)+'px';
+    h.style.top  = y+(Math.random()*40-20)+'px';
+    h.style.animationDelay = (Math.random()*.3)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),2000);
+  }
+}
+addEventListener('click', e=>{
+  if(e.target.closest('button,.polaroid,#lightbox,a')) return;
+  burst(e.clientX, e.clientY, 4);
+});
+</script>
+</body>
+</html>
