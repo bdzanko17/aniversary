@@ -137,6 +137,11 @@
   /* ---------- fireworks ---------- */
   #fireworks{position:fixed;inset:0;width:100%;height:100%;z-index:95;pointer-events:none}
 
+  /* ---------- penguin decorations ---------- */
+  .peng-deco{position:absolute;pointer-events:none;z-index:1}
+  .stamps-section,.quiz-section,.reasons-section,.journey-section,.scratch-section{position:relative}
+  .peng-couple{display:block;margin:0 auto 1.2rem;width:150px;height:auto}
+
   /* ---------- waddling penguin ---------- */
   #penguin{
     position:fixed;bottom:.25rem;left:0;z-index:85;
@@ -339,6 +344,26 @@
 <body>
 <canvas id="dust" aria-hidden="true"></canvas>
 <canvas id="fireworks" aria-hidden="true"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pingu">
+      <ellipse cx="50" cy="62" rx="34" ry="40" fill="#4a3f33"/>
+      <ellipse cx="16" cy="66" rx="8" ry="19" fill="#4a3f33" transform="rotate(18 16 66)"/>
+      <ellipse cx="84" cy="66" rx="8" ry="19" fill="#4a3f33" transform="rotate(-18 84 66)"/>
+      <ellipse cx="50" cy="72" rx="23" ry="28" fill="#fffdf9"/>
+      <circle cx="38" cy="44" r="4.6" fill="#241c14"/>
+      <circle cx="62" cy="44" r="4.6" fill="#241c14"/>
+      <circle cx="39.6" cy="42.4" r="1.6" fill="#fffdf9"/>
+      <circle cx="63.6" cy="42.4" r="1.6" fill="#fffdf9"/>
+      <circle cx="28" cy="53" r="4" fill="#cf9ba4" opacity=".55"/>
+      <circle cx="72" cy="53" r="4" fill="#cf9ba4" opacity=".55"/>
+      <polygon points="44,50 56,50 50,58" fill="#e8a25e"/>
+      <ellipse cx="38" cy="101" rx="9" ry="4.5" fill="#e8a25e"/>
+      <ellipse cx="62" cy="101" rx="9" ry="4.5" fill="#e8a25e"/>
+    </g>
+  </defs>
+</svg>
 <main>
 
   <section class="hero">
@@ -363,12 +388,14 @@
   </section>
 
   <section class="stamps-section">
+    <svg class="peng-deco" viewBox="0 0 100 110" style="width:54px;left:4%;bottom:14px;transform:rotate(-10deg)"><use href="#pingu"/></svg>
     <h2>One year, so many <em>adventures</em></h2>
     <p>Tap a stamp to relive it ♥</p>
     <div class="stamps" id="stamps"></div>
   </section>
 
   <section class="journey-section">
+    <svg class="peng-deco" viewBox="0 0 100 110" style="width:46px;right:6%;top:8px;transform:rotate(9deg)"><use href="#pingu"/></svg>
     <h2>The road we <em>traveled</em></h2>
     <p>Keep scrolling — the route draws itself ♥</p>
     <svg id="journey-svg" viewBox="0 0 400 940" aria-label="Map of our trips">
@@ -408,6 +435,7 @@
   </section>
 
   <section class="quiz-section">
+    <svg class="peng-deco" viewBox="0 0 100 110" style="width:44px;left:5%;top:4px;transform:rotate(-7deg)"><use href="#pingu"/></svg>
     <h2>How well do you <em>know us</em>?</h2>
     <p>Nine questions. No pressure, Amina. (Some pressure.)</p>
     <div class="card" id="quiz-card">
@@ -439,12 +467,18 @@
   </section>
 
   <section class="reasons-section">
+    <svg class="peng-deco" viewBox="0 0 100 110" style="width:50px;right:4%;bottom:30px;transform:rotate(11deg)"><use href="#pingu"/></svg>
     <h2>Reasons I love you, <em>randomized</em></h2>
     <div id="reason-box">tap the button. I have a list.</div>
     <button class="pill" id="reason-btn">Another reason</button>
   </section>
 
   <section class="letter-section">
+    <svg class="peng-couple" viewBox="0 0 240 130" aria-label="Two penguins in love">
+      <use href="#pingu" transform="translate(2,12) scale(.92) rotate(6 50 60)"/>
+      <use href="#pingu" transform="translate(146,12) scale(.92) rotate(-6 50 60)"/>
+      <path d="M120 52 c-6-11 -23-7 -23 6 c0 10 15 17 23 25 c8-8 23-15 23-25 c0-13 -17-17 -23-6z" fill="#cf9ba4"/>
+    </svg>
     <button id="envelope" aria-expanded="false" aria-controls="letter">💌</button>
     <p>open me</p>
     <div id="letter">
@@ -471,6 +505,7 @@
   </section>
 
   <section class="scratch-section">
+    <svg class="peng-deco" viewBox="0 0 100 110" style="width:48px;left:3%;top:0;transform:rotate(-12deg)"><use href="#pingu"/></svg>
     <h2>One last <em>surprise</em></h2>
     <p>Scratch it. With your finger. Yes, really.</p>
     <div id="scratch-wrap">
