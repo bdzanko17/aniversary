@@ -263,7 +263,7 @@
       <h2>Our year, in <em>polaroids</em></h2>
       <p>Drag them around · tap one to see it up close</p>
       <div class="table-actions">
-        <button class="pill" id="shuffle">Shuffle the table</button>
+        <button class="pill" id="shuffle">Shuffle (like our travel plans)</button>
       </div>
     </div>
     <div id="table" aria-label="Photo gallery"></div>
@@ -277,18 +277,23 @@
       <p style="margin-top:.8rem">
         365 days ago we started something, and somehow every single one of them
         got better than the last. From Vienna to Dubrovnik, Split to Pag —
-        kayaks, boats, dancing at weddings, even breathing underwater together.
-        We did all of that with miles between us most of the year — and still
-        never missed a single day of our streak.
-        Thank you for every laugh, every late night, every photo on this page
-        and the thousand little moments between them.
+        kayaks, ferries, dancing at two weddings, even breathing underwater
+        together (you still looked cute in the mask, which honestly shouldn't
+        be possible).
       </p>
-      <p style="margin-top:.8rem">Here's to year two. And every one after that.</p>
+      <p style="margin-top:.8rem">
+        We did most of it with a few hundred kilometers between us, a 360-day
+        streak, and exactly one miss — which we don't talk about, because we
+        recovered like champions. That's kind of our thing: we always find our
+        way back to each other. Thank you for every laugh, every late night,
+        and every photo on this page.
+      </p>
+      <p style="margin-top:.8rem">Here's to year two. Same us — hopefully fewer stairs than Dubrovnik.</p>
       <p class="sign">— with all my love ♥</p>
     </div>
   </section>
 
-  <footer>made with <b>♥</b> for Amina · 30.08.2025 → forever</footer>
+  <footer>made with <b>♥</b> for Amina (and a concerning number of ferry tickets) · 30.08.2025 → forever</footer>
 </main>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
@@ -313,10 +318,10 @@ const PHOTOS = [
 ];
 const CAPTIONS = [
   "where it all began","just us","golden hour","that smile","adventure day",
-  "my favorite view","laughing again","somewhere beautiful","hand in hand",
+  "my favorite view","we look good. as usual.","somewhere beautiful","hand in hand",
   "little moments","this one's a keeper","sunshine & you","date night",
-  "us being us","couldn't stop smiling","my whole heart","one of the good days",
-  "forever mood","still can't believe it","lucky me","home is you",
+  "us being us","couldn't stop smiling","my whole heart","photographer of the year (me)",
+  "forever mood","still can't believe you said yes to date #2","lucky me","home is you",
   "365 of these","and many more ♥"
 ];
 const START = new Date(2025, 7, 30, 0, 0, 0);       // 30 Aug 2025
@@ -378,18 +383,18 @@ tick(); setInterval(tick, 1000);
 
 /* ---------- adventure stamps ---------- */
 const ADVENTURES = [
-  {ico:'🎡', name:'Vienna',       note:'you came to me'},
-  {ico:'🏰', name:'Dubrovnik',    note:'city of stone & us'},
-  {ico:'⛵', name:'Split',        note:'by the sea'},
+  {ico:'🎡', name:'Vienna',       note:'best delivery Vienna ever got'},
+  {ico:'🏰', name:'Dubrovnik',    note:'walked the walls, complained about stairs'},
+  {ico:'⛵', name:'Split',        note:'gelato count: classified'},
   {ico:'🌊', name:'Podstrana',    note:'our little escape'},
-  {ico:'🏝️', name:'Pag',          note:'island days'},
-  {ico:'🌅', name:'Novalja',      note:'summer nights'},
-  {ico:'🛶', name:'Kayaking',     note:'paddling together'},
-  {ico:'🤿', name:'Scuba diving', note:'under the surface'},
-  {ico:'⛴️', name:'Boat ferry',   note:'wind in our hair'},
-  {ico:'💍', name:'2 weddings',   note:'we danced all night'},
-  {ico:'🔥', name:'360-day streak', note:'our couple app never missed us'},
-  {ico:'📱', name:'Long distance', note:'never felt far with you'}
+  {ico:'🏝️', name:'Pag',          note:'questionable tan lines'},
+  {ico:'🌅', name:'Novalja',      note:'we survived the party island'},
+  {ico:'🛶', name:'Kayaking',     note:'nobody fell in (officially)'},
+  {ico:'🤿', name:'Scuba diving', note:'cute even in a snorkel mask'},
+  {ico:'⛴️', name:'Boat ferry',   note:'hair: destroyed. mood: perfect'},
+  {ico:'💍', name:'2 weddings',   note:'danced like nobody filmed us (they did)'},
+  {ico:'🔥', name:'360-day streak', note:'one miss. we don’t talk about it.'},
+  {ico:'📱', name:'Long distance', note:'my phone battery’s biggest enemy'}
 ];
 const stampsWrap = document.getElementById('stamps');
 ADVENTURES.forEach(a=>{
